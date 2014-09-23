@@ -1,0 +1,38 @@
+算法思路
+先用一个sum[ ]数组标记前i个数之和模p，则答案即为两个sum[]值相等的下标只差，由于p值很小，只有记录模p后所有值第一次出现和最后一次出现的下标即可（例如样例1，sum[0]到sum[5]分别为0,0,1,7,3,1，sum[2]==sum[5],所以5-3即为答案）
+代码
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int front[20];
+int rear[20];
+int n,p;
+int main()
+{
+    int T,i,j,t,t1,ma;
+   //freopen("in.txt","r",stdin);
+    scanf("%d",&T);
+    while(T--)
+    {
+        ma=1;
+        t=0;
+        memset(front,-1,sizeof(front));
+        memset(rear,-1,sizeof(rear));
+        scanf("%d%d",&n,&p);
+        front[0]=0;//小小陷阱，front[0]必须等于0
+        for(i=1;i<=n;i++)
+        {
+            scanf("%d",&t1);
+            t=(t+t1)%p;
+            if(front[t]==-1)front[t]=i;
+            rear[t]=i;
+        }
+        for(i=0;i<p;i++)
+        ma=max(rear[i]-front[i],ma);
+        printf("%d\n",ma);
+    }
+return 0;
+}

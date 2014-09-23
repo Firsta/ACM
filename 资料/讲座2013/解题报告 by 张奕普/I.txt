@@ -1,0 +1,87 @@
+ALGORITHM ANALYSE:
+线段树+懒操作存储所加值
+（超时了……）
+CODE:
+
+#include<stdio.h>
+#include<algorithm>
+#include<iostream>
+using namespace std;
+const int MAXN=100000;
+struct tree
+	{
+	int left,right;
+	long long add,sum;
+    }t[MAXN*3];
+int n[MAXN];
+void build(int i,int l,int r)
+{
+	t[i].left=l;
+	t[i].right=r;
+	t[i].add=0;
+	if(l==r)
+	{
+		t[i].sum=n[l];
+		return;
+	}
+	int mid=(l+r)>>1;
+	build(i<<1,l,mid);
+	build(i<<1|1,mid+1,r);
+	t[i].sum=t[i<<1].sum+t[i<<1|1].sum;
+}
+void update(int i,int l,long long add,int r)
+{
+	if(t[i].left==l&&t[i].right==r)
+	{
+		t[i].add+=add;
+		return;
+	}
+	t[i].sum+=add*(l-r+1);
+	int mid=(t[i].left+t[i].right)>>12;
+	if(r<=mid) update(i<<1,l,add,r);
+	else if(l>mid) update(i<<1|1,l,add,r);
+	else
+	{
+		update(i<<1,l,add,mid);
+		update(i<<1|1,mid+1,add,r);
+	}
+}
+long long query(int i,int l,int r)
+{
+	if(t[i].left==l&&t[i].right==r)
+		return t[i].sum+(r-l+1)*t[i].add;
+	t[i].sum+=(t[i].right-t[i].left+1)*t[i].add;
+	int mid=(t[i].right+t[i].left)>>1;
+	update(i<<1,t[i].left,t[i].add,mid);
+	update(i<<1|1,mid+1,t[i].add,t[i].right);
+	t[i].add=0;
+	if(r<=mid) return query(i<<1,l,r);
+	else if(l>mid)  return query(i<<1|1,l,r);
+	else return query(i<<1,l,mid)+query(i<<1|1,mid+1,r);
+}
+int main(void)
+{
+	int i,N,Q ;
+	char con;
+	int a,b,c;
+	scanf("%d %d",&N,&Q);
+	for(i=1;i<=N;i++)
+		scanf("%d",&n[i]);
+	build(1,1,N);
+	for(i=1;i<=Q;i++)
+	{
+		scanf("%c",&con);
+		getchar();
+		if(con=='C')
+		{
+			scanf("%d %d %d",&a,&b,&c);
+			update(1,a,c,b);
+		}
+		else
+		{
+			scanf("%d %d",&a,&b);
+			printf("%I64d\n ",query(1,a,b));
+		}
+	}
+	return 0;
+}

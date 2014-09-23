@@ -1,0 +1,44 @@
+ALGORITHM ANALYSE:
+使用单调队列操作队首和队尾保持队首最大或最小
+
+CODE:
+#include<iostream>
+#include<cstdio>
+using namespace std;
+#define MAXN 1000002
+int a[MAXN],mi[MAXN],ma[MAXN];//mi存储最小值，ma存储最大值
+int ans1[MAXN],ans2[MAXN];
+int main(void)
+{
+	int n,k,i;
+	scanf("%d %d",&n,&k);
+	for(i=1;i<=n;i++)
+		scanf("%d",&a[i]);
+	int front1,rear1,front2,rear2;
+	front1=front2=rear1=rear2=1;
+	for(i=1;i<=n;i++)
+	{
+		while(a[mi[rear1-1]]>=a[i]&&rear1>front1)
+			rear1--;//把队尾大于入队元素的元素删除
+		mi[rear1++]=i;
+		while(a[ma[rear2-1]]<=a[i]&&rear2>front2)
+			rear2--;//把队尾小于入队元素的元素删除
+		ma[rear2++]=i;
+		if(i-mi[front1]>=k) front1++;//k个元素后逐一存储
+        	if(i-ma[front2]>=k) front2++;
+		if(i>=k-1) 
+		{
+			ans1[i]=a[mi[front1]];//队首元素即为最小值
+			ans2[i]=a[ma[front2]];//队首元素即为最大值
+		}
+	}
+	printf("%d",ans1[k]);
+	for(i=k+1;i<=n;i++)
+		printf(" %d",ans1[i]);
+	printf("\n");
+	printf("%d",ans2[k]);
+	for(i=k+1;i<=n;i++)
+		printf(" %d",ans2[i]);
+	printf("\n");
+	return 0;
+}
