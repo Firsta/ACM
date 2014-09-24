@@ -1,0 +1,52 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<cstdlib>
+#include<climits>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<set>
+#include<queue>
+#include<map>
+#include<cmath>
+#include<sstream>
+#include<string>
+#define MAXN 100005
+
+typedef __int64 ll;
+typedef unsigned long long ull;
+using namespace std;
+
+ll sumv[MAXN];
+
+int main(){
+	ll n;
+	while(~scanf("%I64d",&n)&&(n)){
+		ll m;
+		scanf("%I64d",&m);
+		memset(sumv,0,sizeof(sumv));
+		while(m--){
+			ll l,r;ll d;
+			scanf("%I64d%I64d%I64d",&l,&r,&d);
+			sumv[l]+=d;
+			sumv[r+1]-=d;
+		}
+		for(int i=1;i<=n;i++)
+			sumv[i]=sumv[i]+sumv[i-1];
+		for(int i=1;i<=n;i++)
+			sumv[i]=sumv[i]+sumv[i-1];
+		ll k;ll ans=0;
+		scanf("%I64d",&k);
+		for(int i=1;i<=k;i++){
+			ll h;
+			int x;
+			scanf("%I64d%I64d",&h,&x);
+			if(sumv[n]-sumv[x-1]<h){
+				ans++;
+			}
+		}
+		printf("%I64d\n",ans);
+	}
+	return 0;
+}

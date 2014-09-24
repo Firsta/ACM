@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+int scolor[26];
+int havec[26];
+int gcolor[26];
+using namespace std;
+int main()
+{
+	string s;
+	cin>>s;
+	string g;
+	cin>>g;
+	int area;
+	for(int i=0;i<s.size();i++)
+	{
+		scolor[s[i]-'a']++;
+		if(!havec[s[i]-'a'])
+			havec[s[i]-'a']=1;
+	}
+	bool flag=true;
+	for(int i=0;i<g.size();i++)
+	{
+		if(scolor[g[i]-'a']==1&&havec[g[i]-'a']==1)
+		{
+			area+=1;
+			havec[g[i]-'a']+=1;
+		}
+		if(scolor[g[i]-'a']==1&&havec[g[i]-'a']==2)
+			continue;
+		if(havec[g[i]-'a']==0)
+		{
+			flag=false;
+			break;
+		}
+		else
+		{
+			area+=1;
+			scolor[g[i]-'a']--;
+		}
+	}
+	if(flag)
+		cout<<area<<endl;
+	else
+		cout<<"-1"<<endl;
+	return 0;
+}
