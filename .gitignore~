@@ -1,7 +1,1 @@
-*~
-*.exe
-*.pdf
-*.dox
-*.rar
-*.jpg
-*.ppt
+﻿!*.cpp
