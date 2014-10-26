@@ -63,8 +63,8 @@ int findMax()
 
 int main()
 {
- //   freopen("barn1.in","r",stdin);
- //   freopen("barn1.out","w",stdout);
+    freopen("barn1.in","r",stdin);
+    freopen("barn1.out","w",stdout);
 	cin>>m>>s>>c;
 	for(int i=0;i<c;i++)
 		cin>>a[i];
