@@ -1,3 +1,7 @@
+#include    <queue>
+
+using namespace std;
+
 class Stack {
 public:
     queue<int> qa, qb;
