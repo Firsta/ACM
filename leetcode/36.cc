@@ -1,6 +1,12 @@
-ass Solution {
+#include    <string.h>
+#include    <iostream>
+#include    <vector>
+
+using namespace std;
+
+class Solution {
     public:
-        bool isValidSudoku(vector<vector<char>>& board) {
+        bool isValidSudoku(vector<vector<char> >& board) {
             int line[9][10], row[9][10], square[9][10];
             memset(line, 0, sizeof(line));
             memset(row, 0, sizeof(row));
@@ -25,3 +31,16 @@ ass Solution {
         }
 
 };
+
+int main() {
+    vector<vector<char> > board(9);
+    for (int i = 0; i < 9; i++) {
+         string tmp;
+         cin >> tmp;
+         for (int j = 0; j < tmp.length(); j++)
+             board[i].push_back(tmp[j]);
+    }
+    Solution test;
+    cout << test.isValidSudoku(board);
+    return 0;
+}
