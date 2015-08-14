@@ -1,4 +1,5 @@
 #include    <string.h>
+#include    <functional>
 #include    <iostream>
 #include    <vector>
 
@@ -37,10 +38,11 @@ int main() {
     for (int i = 0; i < 9; i++) {
          string tmp;
          cin >> tmp;
-         for (int j = 0; j < tmp.length(); j++)
+         for (unsigned long j = 0; j < tmp.length(); j++)
              board[i].push_back(tmp[j]);
     }
+    std::function<bool(Solution &, vector<vector<char> > &board)> f = &Solution::isValidSudoku;
     Solution test;
-    cout << test.isValidSudoku(board);
+    cout << f(test, board);
     return 0;
 }
