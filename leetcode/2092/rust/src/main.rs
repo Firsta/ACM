@@ -65,9 +65,6 @@ pub fn find_all_people(n: i32, meetings: Vec<Vec<i32>>, first_person: i32) -> Ve
 
             if !us.same(a, 0) {
                 us.clear(a);
-            }
-
-            if !us.same(b, 0) {
                 us.clear(b);
             }
         }
