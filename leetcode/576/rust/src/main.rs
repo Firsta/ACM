@@ -5,7 +5,7 @@ pub fn find_paths(m: i32, n: i32, max_move: i32, start_row: i32, start_column: i
     let start_row = start_row as usize;
     let start_column = start_column as usize;
 
-    let mm = 10i32.pow(9) + 7;
+    let r = 10i32.pow(9) + 7;
 
     let mut dp = vec![vec![vec![0; n + 2]; m + 2]; max_move + 1];
     for i in 1..=n {
@@ -19,10 +19,9 @@ pub fn find_paths(m: i32, n: i32, max_move: i32, start_row: i32, start_column: i
     for i in 1..=max_move {
         for j in 1..=m {
             for k in 1..=n {
-                dp[i][j][k] = dp[i - 1][j - 1][k];
-                dp[i][j][k] = (dp[i][j][k] + dp[i - 1][j][k - 1]) % mm;
-                dp[i][j][k] = (dp[i][j][k] + dp[i - 1][j + 1][k]) % mm;
-                dp[i][j][k] = (dp[i][j][k] + dp[i - 1][j][k + 1]) % mm;
+                for (dx, dy) in [(-1, 0), (1, 0), (0, -1), (0, 1)] {
+                    dp[i][j][k] = (dp[i][j][k] + dp[i - 1][(j as i32 + dx) as usize][(k as i32 + dy) as usize]) % r;
+                }
             }
         }
     }
@@ -35,7 +34,7 @@ pub fn find_paths(m: i32, n: i32, max_move: i32, start_row: i32, start_column: i
 
     let mut result = 0;
     for i in 1..=max_move {
-        result = (result + dp[i][start_row + 1][start_column + 1]) % mm;
+        result = (result + dp[i][start_row + 1][start_column + 1]) % r;
     }
     result
 }
