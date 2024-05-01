@@ -1,28 +1,25 @@
 pub fn reverse_prefix(word: String, ch: char) -> String {
-    let mut s = Vec::new();
-    let mut ans = String::new();
-    let mut reversed = false;
-    for c in word.chars() {
-        if reversed {
-            ans.push(c);
-        } else {
-            if c == ch {
-                ans.push(c);
-                while !s.is_empty() {
-                    ans.push(s.pop().unwrap());
-                }
-                reversed = true;
-            } else {
-                s.push(c);
-            }
+    let mut word = word;
+    unsafe {
+        let b = word.as_bytes_mut();
+        let i = b.iter().enumerate().find(|x| *(x.1) == ch as u8);
+
+        if i.is_none() {
+            return word;
+        }
+        // println!("{:?}", i);
+        let mut i = i.unwrap().0;
+        let mut j = 0;
+        while j < i {
+            let t = b[j];
+            b[j] = b[i];
+            b[i] = t;
+            j += 1;
+            i -= 1;
         }
     }
 
-    if reversed {
-        ans
-    } else {
-        word
-    }
+    word
 }
 
 fn main() {
