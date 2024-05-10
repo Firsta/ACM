@@ -12,9 +12,6 @@ struct F {
 
 impl Ord for F {
     fn cmp(&self, other: &Self) -> Ordering {
-        // Notice that the we flip the ordering on costs.
-        // In case of a tie we compare positions - this step is necessary
-        // to make implementations of `PartialEq` and `Ord` consistent.
         (self.d * other.u).cmp(&(self.u * other.d))
     }
 }
