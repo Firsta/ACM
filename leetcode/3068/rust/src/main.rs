@@ -1,4 +1,4 @@
-pub fn maximum_value_sum(nums: Vec<i32>, k: i32, edges: Vec<Vec<i32>>) -> i64 {
+pub fn maximum_value_sum(nums: Vec<i32>, k: i32, _edges: Vec<Vec<i32>>) -> i64 {
     let nums: Vec<i64> = nums.into_iter().map(|x| x.into()).collect();
 
     let n = nums.len();
