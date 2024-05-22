@@ -46,8 +46,8 @@ fn main() {
     assert_eq!(
         partition("aab".to_string()),
         vec![
+            vec!["aa".to_string(), "b".to_string()],
             vec!["a".to_string(), "a".to_string(), "b".to_string()],
-            vec!["aa".to_string(), "b".to_string()]
         ]
     );
     assert_eq!(partition("a".to_string()), vec![vec!["a".to_string()]]);
