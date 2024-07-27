@@ -6,7 +6,7 @@ pub fn minimum_cost(
     cost: Vec<i32>,
 ) -> i64 {
     fn idx_c(c: &char) -> usize {
-        (*c as u8 - 'a' as u8) as usize + 1
+        (*c as u8 - b'a') as usize + 1
     }
 
     let mut dp = vec![vec![vec![None; 27]; 27]; 27];
