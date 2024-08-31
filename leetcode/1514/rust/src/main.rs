@@ -6,7 +6,7 @@ struct MyF64(f64);
 
 impl Eq for MyF64 {}
 
-impl Ord for MyF64 {
+/* impl Ord for MyF64 {
     fn cmp(&self, other: &Self) -> Ordering {
         if let Some(ordering) = self.partial_cmp(other) {
             ordering
@@ -16,6 +16,7 @@ impl Ord for MyF64 {
         }
     }
 }
+ */
 
 #[derive(Copy, Clone, Eq, PartialEq)]
 struct State {
@@ -31,9 +32,7 @@ impl Ord for State {
         // Notice that we flip the ordering on costs.
         // In case of a tie we compare positions - this step is necessary
         // to make implementations of `PartialEq` and `Ord` consistent.
-        self.prob
-            .cmp(&other.prob)
-            .then_with(|| self.position.cmp(&other.position))
+        self.prob.partial_cmp(&other.prob).unwrap()
     }
 }
 
