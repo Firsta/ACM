@@ -2,12 +2,12 @@ use std::{cmp::Reverse, collections::BinaryHeap};
 
 pub fn shortest_subarray(nums: Vec<i32>, k: i32) -> i32 {
     let mut h = BinaryHeap::new();
-    let mut sum = 0;
+    let mut sum: i64 = 0;
     h.push(Reverse((0, -1)));
     let mut ans = 100010;
     for i in 0..nums.len() {
-        sum += nums[i];
-        while h.peek().is_some() && sum - h.peek().unwrap().0 .0 >= k {
+        sum += nums[i] as i64;
+        while h.peek().is_some() && sum - h.peek().unwrap().0 .0 >= k as i64 {
             ans = std::cmp::min(ans, i as i32 - h.peek().unwrap().0 .1);
             h.pop();
         }
