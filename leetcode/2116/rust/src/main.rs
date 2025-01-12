@@ -53,7 +53,7 @@ pub fn can_be_valid(s: String, locked: String) -> bool {
                     if unlocked == 0 {
                         return false;
                     } else {
-                        open += 2;
+                        open += 1;
                         unlocked -= 1;
                     }
                 } else {
