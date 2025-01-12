@@ -1,4 +1,4 @@
-pub fn can_be_valid(s: String, locked: String) -> bool {
+pub fn can_be_valid_0(s: String, locked: String) -> bool {
     if s.len() % 2 == 1 {
         false
     } else {
@@ -32,6 +32,37 @@ pub fn can_be_valid(s: String, locked: String) -> bool {
         }
 
         unlocked.len() % 2 == 0
+    }
+}
+
+pub fn can_be_valid(s: String, locked: String) -> bool {
+    if s.len() % 2 == 1 {
+        false
+    } else {
+        let mut unlocked = 0;
+        let mut open = 0;
+        for (idx, mut c) in s.chars().enumerate() {
+            if locked.as_bytes()[idx] as char == '0' {
+                unlocked += 1;
+                c = ')'
+            }
+            if c == '(' {
+                open += 1;
+            } else {
+                if open == 0 {
+                    if unlocked == 0 {
+                        return false;
+                    } else {
+                        open += 2;
+                        unlocked -= 1;
+                    }
+                } else {
+                    open -= 1;
+                }
+            }
+        }
+
+        open == 0
     }
 }
 
